@@ -19,32 +19,55 @@ const energyData = [
   { time: '23:59', load: 45, prediction: 45 },
 ];
 
-// --- СТАРИЙ КОМПОНЕНТ: 3D БУДИНОК ---
+// --- ВДОСКОНАЛЕНИЙ КОМПОНЕНТ: 3D БУДИНОК (ІДЕАЛЬНИЙ ДВОСКАТНИЙ ДАХ) ---
 const SmartHome3D = () => {
   const [powerMode, setPowerMode] = useState('grid'); 
 
   const getStyles = () => {
     if (powerMode === 'grid') return { 
-      color: 'bg-white', glow: 'shadow-[0_0_80px_rgba(255,255,255,0.8)]', 
-      text: 'Міська мережа', desc: 'Живлення від загальної мережі. Батареї заряджаються за найнижчим тарифом.', textCol: 'text-white' 
+      color: 'bg-white', coreGlow: 'shadow-[0_0_50px_rgba(255,255,255,0.8)]', 
+      text: 'Міська мережа', desc: 'Живлення від загальної мережі. Батареї заряджаються за найнижчим тарифом.', textCol: 'text-white',
+      wallBorder: 'border-white/20', windowGlow: 'bg-white/10 shadow-[inset_0_0_15px_rgba(255,255,255,0.2)]', baseGlow: 'bg-white/10',
+      doorLight: 'bg-white shadow-[0_0_8px_white]',
+      roofGradient: 'from-[#020617] to-[#1e293b]/80', roofGable: 'from-[#020617]/80 to-white/5'
     };
     if (powerMode === 'battery') return { 
-      color: 'bg-emerald-400', glow: 'shadow-[0_0_100px_rgba(52,211,153,0.8)]', 
-      text: 'Резервні батареї', desc: 'Блекаут. Система миттєво перемкнула обʼєкт на резервне живлення. Світло не зникало.', textCol: 'text-emerald-400' 
+      color: 'bg-emerald-400', coreGlow: 'shadow-[0_0_70px_rgba(52,211,153,0.9)]', 
+      text: 'Резервні батареї', desc: 'Блекаут. Система миттєво перемкнула обʼєкт на резервне живлення. Світло не зникало.', textCol: 'text-emerald-400',
+      wallBorder: 'border-emerald-500/40', windowGlow: 'bg-emerald-400/20 shadow-[inset_0_0_20px_rgba(52,211,153,0.3)]', baseGlow: 'bg-emerald-500/10',
+      doorLight: 'bg-emerald-400 shadow-[0_0_8px_#34d399]',
+      roofGradient: 'from-[#020617] to-emerald-950/80', roofGable: 'from-[#020617]/80 to-emerald-900/20'
     };
     return { 
-      color: 'bg-cyan-400', glow: 'shadow-[0_0_120px_rgba(34,211,238,0.9)] animate-pulse', 
-      text: 'AI Оптимізація', desc: 'Пікові години. AI продає надлишок енергії або використовує батареї для максимальної економії.', textCol: 'text-cyan-400' 
+      color: 'bg-cyan-400', coreGlow: 'shadow-[0_0_90px_rgba(34,211,238,0.9)] animate-pulse', 
+      text: 'AI Оптимізація', desc: 'Пікові години. AI продає надлишок енергії або використовує батареї для максимальної економії.', textCol: 'text-cyan-400',
+      wallBorder: 'border-cyan-500/50', windowGlow: 'bg-cyan-400/20 shadow-[inset_0_0_20px_rgba(34,211,238,0.3)]', baseGlow: 'bg-cyan-500/20',
+      doorLight: 'bg-cyan-400 shadow-[0_0_8px_#22d3ee]',
+      roofGradient: 'from-[#020617] to-cyan-950/80', roofGable: 'from-[#020617]/80 to-cyan-900/20'
     };
   };
 
   const s = getStyles();
 
+  // Вікна з рамками
+  const WindowPane = () => (
+    <div className={`w-full h-full border border-white/10 ${s.windowGlow} transition-all duration-700 flex flex-col gap-[1px] p-[1px]`}>
+        <div className="w-full h-1/2 border-b border-white/10"></div>
+        <div className="w-full h-1/2"></div>
+    </div>
+  );
+
+  const wallClass = `absolute inset-0 bg-gradient-to-t from-[#020617] to-[#020617]/60 backdrop-blur-[3px] border ${s.wallBorder} transition-colors duration-700`;
+  
+  // Геометрія двоскатного даху
+  const roofSideClass = `absolute bottom-0 left-0 w-[160px] h-[114px] origin-bottom bg-gradient-to-t ${s.roofGradient} backdrop-blur-md border ${s.wallBorder} transition-colors duration-700`;
+  const roofGableClass = `absolute bottom-0 left-0 w-[160px] h-[80px] origin-bottom [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-gradient-to-t ${s.roofGable} backdrop-blur-[3px] transition-colors duration-700 border-b ${s.wallBorder}`;
+
   return (
     <div className="flex flex-col items-center justify-center py-6 perspective-[1500px] w-full max-w-5xl mx-auto">
       
       {/* КНОПКИ КЕРУВАННЯ */}
-      <div className="flex flex-col md:flex-row gap-4 mb-24 w-full justify-center px-4 z-10 relative">
+      <div className="flex flex-col md:flex-row gap-4 mb-32 w-full justify-center px-4 z-10 relative">
         <button 
           onClick={() => setPowerMode('grid')}
           className={`flex items-center gap-3 px-6 py-4 rounded-2xl border transition-all duration-300 flex-1 md:flex-none justify-center
@@ -100,56 +123,80 @@ const SmartHome3D = () => {
         </div>
 
         {/* 3D БУДИНОК */}
-        <div className="relative w-[160px] h-[120px] [transform-style:preserve-3d] [transform:rotateX(-15deg)_rotateY(-45deg)] transition-transform duration-1000 hover:[transform:rotateX(-10deg)_rotateY(-35deg)] cursor-crosshair order-1 lg:order-2 shrink-0">
+        {/* Доданий відступ зверху mt-32, щоб дах не ліз на кнопки */}
+        <div className="relative mt-32 lg:mt-24 w-[260px] h-[260px] lg:w-[350px] lg:h-[350px] flex items-center justify-center order-1 lg:order-2 shrink-0">
+          <div className="relative w-[160px] h-[120px] [transform-style:preserve-3d] [transform:scale(1.6)_rotateX(-15deg)_rotateY(-45deg)] lg:[transform:scale(2.2)_rotateX(-15deg)_rotateY(-45deg)] transition-transform duration-1000 hover:[transform:scale(1.6)_rotateX(-10deg)_rotateY(-35deg)] lg:hover:[transform:scale(2.2)_rotateX(-10deg)_rotateY(-35deg)] cursor-crosshair">
 
-          <div className="absolute top-[20px] left-0 w-[160px] h-[160px] bg-black/80 border border-cyan-500/50 [transform:rotateX(-90deg)_translateZ(60px)] shadow-[0_0_50px_rgba(8,51,68,0.8)]">
-            <div className="w-full h-full bg-[linear-gradient(to_right,#083344_1px,transparent_1px),linear-gradient(to_bottom,#083344_1px,transparent_1px)] bg-[size:16px_16px] opacity-50"></div>
+            {/* ПІДЛОГА / СІТКА */}
+            <div className="absolute top-[40px] left-0 w-[160px] h-[160px] [transform:rotateX(90deg)] flex items-center justify-center [transform-style:preserve-3d]">
+                <div className={`absolute w-[240px] h-[240px] rounded-full ${s.baseGlow} blur-[40px] transition-colors duration-1000 opacity-80`}></div>
+                <div className="absolute w-[300px] h-[300px] bg-[linear-gradient(to_right,rgba(34,211,238,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(34,211,238,0.1)_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(circle_at_center,white_30%,transparent_70%)]"></div>
+                <div className={`absolute w-[160px] h-[160px] bg-[#020617] border ${s.wallBorder} transition-colors duration-700 shadow-[inset_0_0_40px_rgba(0,0,0,0.9)]`}></div>
+            </div>
+
+            {/* AI ЯДРО (Центр) */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]">
+                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full ${s.color} ${s.coreGlow} transition-all duration-700 blur-[8px] opacity-60`}></div>
+                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-colors duration-700 shadow-[0_0_15px_white]`}></div>
+            </div>
+
+            {/* ЗАДНЯ СТІНА */}
+            <div className={`${wallClass} [transform:rotateY(180deg)_translateZ(80px)] flex items-center justify-center`}>
+              <div className="w-24 h-16 bg-[#020617]/80 p-[1px] mb-12 border border-white/10">
+                 <WindowPane />
+              </div>
+            </div>
+
+            {/* ЛІВА СТІНА */}
+            <div className={`${wallClass} [transform:rotateY(-90deg)_translateZ(80px)] flex items-center justify-center gap-4`}>
+               <div className="w-12 h-16 bg-[#020617]/80 border border-white/10">
+                  <WindowPane />
+               </div>
+               <div className="w-12 h-16 bg-[#020617]/80 border border-white/10">
+                  <WindowPane />
+               </div>
+            </div>
+
+            {/* ПРАВА СТІНА */}
+            <div className={`${wallClass} [transform:rotateY(90deg)_translateZ(80px)] flex items-center justify-center gap-4`}>
+               <div className="w-12 h-16 bg-[#020617]/80 border border-white/10">
+                  <WindowPane />
+               </div>
+               <div className="w-12 h-16 bg-[#020617]/80 border border-white/10">
+                  <WindowPane />
+               </div>
+            </div>
+
+            {/* ПЕРЕДНЯ СТІНА */}
+            <div className={`${wallClass} [transform:translateZ(80px)] flex items-end justify-between px-4 pb-0`}>
+                <div className="w-14 h-20 bg-[#020617]/80 mb-6 border border-white/10">
+                   <WindowPane />
+                </div>
+                {/* Сучасні двері */}
+                <div className={`w-16 h-24 border-t border-l border-r border-white/10 bg-[#050b14] relative`}>
+                    <div className={`w-1.5 h-6 rounded-full ${s.doorLight} transition-colors duration-700 absolute right-2 top-1/2 -translate-y-1/2`}></div>
+                </div>
+            </div>
+
+            {/* ДВОСКАТНИЙ ДАХ (Gable Roof) */}
+            {/* Контейнер даху чітко стоїть на стінах (top: -80px) */}
+            <div className="absolute top-[-80px] left-0 w-[160px] h-[80px] [transform-style:preserve-3d]">
+                
+                {/* Передній фронтон (вертикальний трикутник) */}
+                <div className={`${roofGableClass} [transform:translateZ(80px)]`}></div>
+                
+                {/* Задній фронтон (вертикальний трикутник) */}
+                <div className={`${roofGableClass} [transform:rotateY(180deg)_translateZ(80px)]`}></div>
+                
+                {/* Правий схил даху */}
+                <div className={`${roofSideClass} [transform:rotateY(90deg)_translateZ(80px)_rotateX(45deg)]`}></div>
+                
+                {/* Лівий схил даху */}
+                <div className={`${roofSideClass} [transform:rotateY(-90deg)_translateZ(80px)_rotateX(45deg)]`}></div>
+                
+            </div>
+
           </div>
-
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]">
-            <div className={`w-8 h-8 rounded-full ${s.color} ${s.glow} transition-all duration-700 blur-[3px]`}></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white transition-colors duration-700"></div>
-          </div>
-
-          <div className="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:translateZ(-80px)_rotateY(180deg)]"></div>
-          <div className="absolute inset-0 bg-cyan-900/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:rotateY(-90deg)_translateZ(80px)]"></div>
-
-          <div className="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:rotateY(90deg)_translateZ(80px)] flex items-center justify-center gap-4">
-             <div className="w-10 h-16 border border-cyan-400/50 bg-black/40 flex flex-col gap-[1px]">
-                 <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                 <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-             <div className="w-10 h-16 border border-cyan-400/50 bg-black/40 flex flex-col gap-[1px]">
-                 <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                 <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-          </div>
-
-          <div className="absolute inset-0 bg-cyan-900/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:translateZ(80px)] flex flex-col justify-end">
-             <div className="absolute top-4 left-4 w-10 h-10 border border-cyan-400/50 grid grid-cols-2 grid-rows-2 gap-[1px] bg-black/60">
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-             <div className="absolute top-4 right-4 w-10 h-10 border border-cyan-400/50 grid grid-cols-2 grid-rows-2 gap-[1px] bg-black/60">
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-             <div className="mx-auto w-12 h-16 border-t border-l border-r border-cyan-400/50 bg-[#050505] relative">
-                <div className="absolute top-1/2 right-2 w-1.5 h-1.5 rounded-full bg-cyan-400/80 shadow-[0_0_5px_#22d3ee]"></div>
-             </div>
-          </div>
-
-          <div className="absolute top-[-114px] left-0 w-[160px] h-[114px] [transform-style:preserve-3d]">
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-800/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-800/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(180deg)_translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-900/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(90deg)_translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-900/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(-90deg)_translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
-          </div>
-
         </div>
       </div>
     </div>
@@ -658,8 +705,8 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="w-full flex-1 min-h-[250px]">
-                <ResponsiveContainer width="100%" height="100%">
+<div className="w-full flex-1 h-[250px] sm:h-[300px] md:h-auto">
+  <ResponsiveContainer width="100%" height="100%" minHeight={250}>
                   <AreaChart data={energyData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorLoad" x1="0" y1="0" x2="0" y2="1">
