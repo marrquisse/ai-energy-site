@@ -19,6 +19,7 @@ const energyData = [
   { time: '23:59', load: 45, prediction: 45 },
 ];
 
+// --- СТАРИЙ КОМПОНЕНТ: 3D БУДИНОК ---
 const SmartHome3D = () => {
   const [powerMode, setPowerMode] = useState('grid'); 
 
@@ -99,59 +100,229 @@ const SmartHome3D = () => {
         </div>
 
         {/* 3D БУДИНОК */}
-        <div className="relative w-[240px] h-[180px] [transform-style:preserve-3d] [transform:rotateX(-15deg)_rotateY(-45deg)] transition-transform duration-1000 hover:[transform:rotateX(-10deg)_rotateY(-35deg)] cursor-crosshair order-1 lg:order-2 shrink-0">
+        <div className="relative w-[160px] h-[120px] [transform-style:preserve-3d] [transform:rotateX(-15deg)_rotateY(-45deg)] transition-transform duration-1000 hover:[transform:rotateX(-10deg)_rotateY(-35deg)] cursor-crosshair order-1 lg:order-2 shrink-0">
 
-          <div className="absolute top-[30px] left-0 w-[240px] h-[240px] bg-black/80 border border-cyan-500/50 [transform:rotateX(-90deg)_translateZ(90px)] shadow-[0_0_80px_rgba(8,51,68,0.8)]">
-            <div className="w-full h-full bg-[linear-gradient(to_right,#083344_1px,transparent_1px),linear-gradient(to_bottom,#083344_1px,transparent_1px)] bg-[size:24px_24px] opacity-50"></div>
+          <div className="absolute top-[20px] left-0 w-[160px] h-[160px] bg-black/80 border border-cyan-500/50 [transform:rotateX(-90deg)_translateZ(60px)] shadow-[0_0_50px_rgba(8,51,68,0.8)]">
+            <div className="w-full h-full bg-[linear-gradient(to_right,#083344_1px,transparent_1px),linear-gradient(to_bottom,#083344_1px,transparent_1px)] bg-[size:16px_16px] opacity-50"></div>
           </div>
 
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]">
-            <div className={`w-12 h-12 rounded-full ${s.color} ${s.glow} transition-all duration-700 blur-[4px]`}></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white transition-colors duration-700"></div>
+            <div className={`w-8 h-8 rounded-full ${s.color} ${s.glow} transition-all duration-700 blur-[3px]`}></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white transition-colors duration-700"></div>
           </div>
 
-          <div className="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:translateZ(-120px)_rotateY(180deg)]"></div>
-          <div className="absolute inset-0 bg-cyan-900/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:rotateY(-90deg)_translateZ(120px)]"></div>
+          <div className="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:translateZ(-80px)_rotateY(180deg)]"></div>
+          <div className="absolute inset-0 bg-cyan-900/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:rotateY(-90deg)_translateZ(80px)]"></div>
 
-          <div className="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:rotateY(90deg)_translateZ(120px)] flex items-center justify-center gap-6">
-             <div className="w-14 h-24 border border-cyan-400/50 bg-black/40 flex flex-col gap-[2px]">
+          <div className="absolute inset-0 bg-cyan-950/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:rotateY(90deg)_translateZ(80px)] flex items-center justify-center gap-4">
+             <div className="w-10 h-16 border border-cyan-400/50 bg-black/40 flex flex-col gap-[1px]">
                  <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
                  <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
              </div>
-             <div className="w-14 h-24 border border-cyan-400/50 bg-black/40 flex flex-col gap-[2px]">
+             <div className="w-10 h-16 border border-cyan-400/50 bg-black/40 flex flex-col gap-[1px]">
                  <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
                  <div className={`w-full h-1/2 ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-          </div>
-
-          <div className="absolute inset-0 bg-cyan-900/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:translateZ(120px)] flex flex-col justify-end">
-             <div className="absolute top-6 left-6 w-16 h-16 border border-cyan-400/50 grid grid-cols-2 grid-rows-2 gap-[2px] bg-black/60">
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-             <div className="absolute top-6 right-6 w-16 h-16 border border-cyan-400/50 grid grid-cols-2 grid-rows-2 gap-[2px] bg-black/60">
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
-             </div>
-             <div className="mx-auto w-16 h-24 border-t border-l border-r border-cyan-400/50 bg-[#050505] relative">
-                <div className="absolute top-1/2 right-3 w-2 h-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_#22d3ee]"></div>
              </div>
           </div>
 
-          <div className="absolute top-[-171px] left-0 w-[240px] h-[171px] [transform-style:preserve-3d]">
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-800/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:translateZ(120px)_rotateX(45deg)] backdrop-blur-sm"></div>
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-800/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(180deg)_translateZ(120px)_rotateX(45deg)] backdrop-blur-sm"></div>
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-900/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(90deg)_translateZ(120px)_rotateX(45deg)] backdrop-blur-sm"></div>
-             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-900/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(-90deg)_translateZ(120px)_rotateX(45deg)] backdrop-blur-sm"></div>
+          <div className="absolute inset-0 bg-cyan-900/40 border border-cyan-500/30 backdrop-blur-[2px] [transform:translateZ(80px)] flex flex-col justify-end">
+             <div className="absolute top-4 left-4 w-10 h-10 border border-cyan-400/50 grid grid-cols-2 grid-rows-2 gap-[1px] bg-black/60">
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+             </div>
+             <div className="absolute top-4 right-4 w-10 h-10 border border-cyan-400/50 grid grid-cols-2 grid-rows-2 gap-[1px] bg-black/60">
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+                <div className={`w-full h-full ${powerMode !== 'grid' ? s.color : 'bg-white'} opacity-40 transition-colors duration-700`}></div>
+             </div>
+             <div className="mx-auto w-12 h-16 border-t border-l border-r border-cyan-400/50 bg-[#050505] relative">
+                <div className="absolute top-1/2 right-2 w-1.5 h-1.5 rounded-full bg-cyan-400/80 shadow-[0_0_5px_#22d3ee]"></div>
+             </div>
+          </div>
+
+          <div className="absolute top-[-114px] left-0 w-[160px] h-[114px] [transform-style:preserve-3d]">
+             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-800/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
+             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-800/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(180deg)_translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
+             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-900/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(90deg)_translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
+             <div className="absolute inset-0 [clip-path:polygon(50%_0,0_100%,100%_100%)] bg-cyan-900/90 border-b-2 border-cyan-400/50 [transform-origin:bottom] [transform:rotateY(-90deg)_translateZ(80px)_rotateX(45deg)] backdrop-blur-sm"></div>
           </div>
 
         </div>
       </div>
     </div>
+  );
+};
+
+// --- КОМПОНЕНТ: АНІМОВАНА ЛОГІКА AI З КНОПКАМИ ---
+const AILogicSection = () => {
+  const [step, setStep] = useState(0);
+  const [isManual, setIsManual] = useState(false);
+
+  const scenarios = [
+    {
+      id: 'charge',
+      shortTitle: 'Нічний тариф',
+      title: "Нічний тариф (23:00 - 07:00)",
+      activeSources: ['grid'],
+      activeDests: ['battery'],
+      log: "> Моніторинг тарифів...\n> Знайдено найнижчий тариф: 1.32 ₴/кВт\n> Дія: Купівля енергії з мережі\n> Маршрутизація: Заряджання резервних батарей на 100%"
+    },
+    {
+      id: 'solar',
+      shortTitle: 'Сонячний день',
+      title: "Сонячний день (13:00)",
+      activeSources: ['sun'],
+      activeDests: ['home', 'battery'],
+      log: "> Моніторинг генерації...\n> Погода: 100% сонячна активність\n> Дія: Відключення від платної мережі\n> Маршрутизація: Безкоштовне живлення будинку + зарядка резерву"
+    },
+    {
+      id: 'peak',
+      shortTitle: 'Піковий тариф',
+      title: "Піковий тариф (18:00 - 23:00)",
+      activeSources: ['battery'], // Батарея віддає енергію
+      activeDests: ['home'],
+      log: "> Моніторинг тарифів...\n> Увага! Найдорожчий час: 4.32 ₴/кВт\n> Дія: Блокування споживання з мережі\n> Маршрутизація: Будинок живиться від накопиченої вночі енергії"
+    },
+    {
+      id: 'blackout',
+      shortTitle: 'Блекаут',
+      title: "Раптовий блекаут",
+      activeSources: ['gen'],
+      activeDests: ['home', 'battery'],
+      log: "> Аналіз системи...\n> Мережа: 0V (Відключення). Батарея: низький заряд.\n> Дія: Автоматичний старт генератора\n> Маршрутизація: Безперебійне живлення будинку + підзарядка батареї"
+    }
+  ];
+
+  useEffect(() => {
+    if (isManual) return; // Зупиняє автоперемикання після ручного кліку
+    const interval = setInterval(() => {
+      setStep(s => (s + 1) % scenarios.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isManual]);
+
+  const active = scenarios[step];
+
+  const Node = ({ icon: Icon, label, id, colorClass }) => {
+    const isSource = active.activeSources.includes(id);
+    const isDest = active.activeDests.includes(id);
+    const isActive = isSource || isDest;
+    
+    return (
+      <div className={`flex flex-col items-center gap-3 p-5 rounded-2xl border transition-all duration-500 w-36 md:w-40 text-center relative
+        ${isActive ? `border-white/30 bg-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] scale-105` : 'border-white/5 opacity-30 grayscale'}
+      `}>
+        <Icon className={`w-8 h-8 md:w-10 md:h-10 ${isActive ? colorClass : 'text-gray-500'} transition-colors duration-500`} />
+        <span className={`text-xs md:text-sm font-bold ${isActive ? 'text-white' : 'text-gray-500'}`}>
+          {label}
+        </span>
+        {/* Підказки стану для батареї */}
+        {id === 'battery' && isActive && isSource && <span className="absolute -bottom-6 text-[10px] text-emerald-400 font-bold bg-emerald-400/10 px-2 py-1 rounded-full">Віддає заряд</span>}
+        {id === 'battery' && isActive && isDest && <span className="absolute -bottom-6 text-[10px] text-emerald-400 font-bold bg-emerald-400/10 px-2 py-1 rounded-full">Накопичує</span>}
+      </div>
+    );
+  };
+
+  return (
+    <section id="logic" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Як AI керує енергією</h2>
+        <p className="text-gray-400 max-w-2xl mx-auto text-lg">Автоматичні сценарії роботи системи в реальному часі.</p>
+      </div>
+
+      {/* КНОПКИ РУЧНОГО ПЕРЕМИКАННЯ */}
+      <div className="flex flex-wrap justify-center gap-3 mb-10 relative z-10">
+        {scenarios.map((sc, idx) => (
+          <button
+            key={sc.id}
+            onClick={() => {
+              setStep(idx);
+              setIsManual(true);
+            }}
+            className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 border ${
+              step === idx 
+                ? 'bg-cyan-500 text-black border-cyan-500 shadow-[0_0_20px_rgba(34,211,238,0.4)]' 
+                : 'bg-white/5 text-gray-400 border-white/10 hover:border-cyan-500/50 hover:text-white'
+            }`}
+          >
+            {sc.shortTitle}
+          </button>
+        ))}
+      </div>
+
+      <div className="bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] p-6 md:p-12 relative overflow-hidden shadow-2xl">
+        {/* Анімація для ліній потоку даних */}
+        <style>{`
+          @keyframes flow-down {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+          }
+          .animate-flow-down { animation: flow-down 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+        `}</style>
+
+        {/* Заголовок та термінал */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6 relative z-10">
+           <div>
+              <p className="text-cyan-400 text-sm font-bold uppercase tracking-widest mb-2">Поточний алгоритм</p>
+              <h3 className="text-2xl md:text-3xl font-bold text-white transition-all">{active.title}</h3>
+           </div>
+           
+           <div className="w-full md:w-1/2 bg-[#050505] border border-white/10 rounded-2xl p-5 font-mono text-xs md:text-sm text-emerald-400 h-32 flex flex-col justify-center shadow-inner relative overflow-hidden">
+             <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/50"></div>
+             {active.log.split('\n').map((line, i) => (
+                <div key={i} className="mb-1.5 opacity-90">{line}</div>
+             ))}
+           </div>
+        </div>
+
+        {/* Схема маршрутизації */}
+        <div className="flex flex-col items-center gap-4 relative z-10">
+            {/* Верхній ряд: Джерела */}
+            <div className="flex flex-wrap justify-center gap-4 md:gap-10 w-full z-20">
+               <Node id="grid" icon={Plug} label="Міська мережа" colorClass="text-white" />
+               <Node id="sun" icon={Sun} label="Сонячні панелі" colorClass="text-yellow-400" />
+               <Node id="gen" icon={Factory} label="Генератор" colorClass="text-red-400" />
+            </div>
+
+            {/* Лінії потоку ВНИЗ (в ядро) */}
+            <div className="h-16 w-full flex justify-center relative">
+               {(active.activeSources.includes('grid') || active.activeSources.includes('sun') || active.activeSources.includes('gen')) && (
+                 <div className="w-[2px] h-full bg-white/5 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1/2 bg-cyan-400 animate-flow-down shadow-[0_0_10px_#22d3ee]"></div>
+                 </div>
+               )}
+            </div>
+
+            {/* Центр: AI Мозок */}
+            <div className="relative group z-20">
+              <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full transition-all duration-500"></div>
+              <div className="w-40 h-40 md:w-48 md:h-48 bg-black border-2 border-cyan-500/40 rounded-full flex flex-col items-center justify-center relative z-10 shadow-[0_0_50px_rgba(34,211,238,0.2)]">
+                <div className="absolute inset-[-4px] rounded-full border border-cyan-500/20 animate-[spin_4s_linear_infinite]"></div>
+                <div className="absolute inset-[-10px] rounded-full border-t border-cyan-400/50 animate-[spin_6s_linear_infinite_reverse]"></div>
+                <BrainCircuit className="w-12 h-12 md:w-16 md:h-16 text-cyan-400 mb-2 animate-pulse" />
+                <h3 className="font-bold text-white text-base md:text-lg">AI Core</h3>
+              </div>
+            </div>
+
+            {/* Лінії потоку ВНИЗ (з ядра) */}
+            <div className="h-16 w-full flex justify-center relative">
+                 <div className="w-[2px] h-full bg-white/5 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1/2 bg-cyan-400 animate-flow-down shadow-[0_0_10px_#22d3ee]"></div>
+                 </div>
+            </div>
+
+            {/* Нижній ряд: Споживачі/Накопичувачі */}
+            <div className="flex flex-wrap justify-center gap-4 md:gap-10 w-full z-20 mt-4">
+               <Node id="home" icon={Home} label="Ваш Будинок" colorClass="text-cyan-400" />
+               <Node id="battery" icon={Battery} label="Батарейний блок" colorClass="text-emerald-400" />
+            </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -163,6 +334,7 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Стейт для чат-бота
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isChatExpanded, setIsChatExpanded] = useState(false);
   const [chatMessage, setChatMessage] = useState("");
@@ -322,67 +494,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* ЛОГІКА РОБОТИ (АРХІТЕКТУРА) */}
-      <section id="logic" className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Архітектура безперервності</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">Як наша система збирає енергію, аналізує дані та живить ваш об'єкт.</p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 relative">
-          <div className="hidden lg:block absolute top-1/2 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-gray-700 via-cyan-500 to-gray-700 -z-10 opacity-50"></div>
-          
-          <div className="flex flex-col gap-4 w-full lg:w-1/4">
-            <div className="bg-white/5 border border-white/10 p-5 rounded-2xl flex items-center gap-4">
-              <Plug className="w-8 h-8 text-gray-400" />
-              <div>
-                <h4 className="font-bold text-white">Міська мережа</h4>
-                <p className="text-xs text-gray-500">Основа (ДТЕК/Ясно)</p>
-              </div>
-            </div>
-            <div className="bg-white/5 border border-white/10 p-5 rounded-2xl flex items-center gap-4">
-              <Sun className="w-8 h-8 text-yellow-400" />
-              <div>
-                <h4 className="font-bold text-white">Сонце</h4>
-                <p className="text-xs text-gray-500">Безкоштовна енергія</p>
-              </div>
-            </div>
-            <div className="bg-white/5 border border-white/10 p-5 rounded-2xl flex items-center gap-4">
-              <Factory className="w-8 h-8 text-red-400" />
-              <div>
-                <h4 className="font-bold text-white">Генератор</h4>
-                <p className="text-xs text-gray-500">Екстрений резерв</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative group">
-            <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full group-hover:bg-cyan-500/40 transition-all duration-500"></div>
-            <div className="w-48 h-48 bg-black border border-cyan-500/50 rounded-full flex flex-col items-center justify-center relative z-10 shadow-[0_0_50px_rgba(34,211,238,0.2)]">
-              <BrainCircuit className="w-16 h-16 text-cyan-400 mb-2 animate-pulse" />
-              <h3 className="font-bold text-white text-lg">AI Core</h3>
-              <p className="text-xs text-cyan-400">Аналіз 100+ разів/сек</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4 w-full lg:w-1/4">
-            <div className="bg-cyan-900/20 border border-cyan-500/30 p-5 rounded-2xl flex items-center gap-4">
-              <Home className="w-8 h-8 text-cyan-400" />
-              <div>
-                <h4 className="font-bold text-white">Ваш об'єкт</h4>
-                <p className="text-xs text-gray-400">Безперебійне живлення</p>
-              </div>
-            </div>
-            <div className="bg-emerald-900/20 border border-emerald-500/30 p-5 rounded-2xl flex items-center gap-4">
-              <Battery className="w-8 h-8 text-emerald-400" />
-              <div>
-                <h4 className="font-bold text-white">Батарейний блок</h4>
-                <p className="text-xs text-gray-400">Накопичення надлишку</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* НОВА ДИНАМІЧНА СЕКЦІЯ ЛОГІКИ */}
+      <AILogicSection />
 
       {/* ПОРІВНЯННЯ */}
       <section className="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
@@ -456,70 +569,146 @@ export default function App() {
 
       {/* DASHBOARD */}
       <section id="dashboard" className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-b from-white/[0.03] to-transparent border border-white/10 rounded-3xl p-6 md:p-10 relative overflow-hidden backdrop-blur-xl shadow-2xl">
+        <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 md:p-10 relative overflow-hidden shadow-2xl">
           <div className="flex flex-col lg:flex-row gap-12 items-stretch">
-            <div className="flex-1 space-y-6 flex flex-col justify-between">
+            
+            {/* Ліва колонка: Статуси та управління */}
+            <div className="flex-1 flex flex-col justify-between space-y-8">
               <div>
                 <div className="flex items-center gap-2 text-cyan-400 text-sm font-bold uppercase tracking-wider mb-3">
                   <Activity className="w-4 h-4" /> Live Аналітика
                 </div>
                 <h2 className="text-3xl font-extrabold text-white">Усе як на долоні</h2>
-                <p className="text-gray-400 mt-2 text-sm">Система балансує навантаження, обираючи найдешевше джерело, а ви бачите це в реальному часі.</p>
+                <p className="text-gray-400 mt-2 text-sm leading-relaxed">
+                  Система балансує навантаження, обираючи найдешевше джерело, а ви бачите це в реальному часі.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs text-gray-400 uppercase font-semibold">Ємність батарей</span>
-                    <Battery className="w-5 h-5 text-emerald-400" />
+              {/* Головний статус системи */}
+              <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-5 flex items-center gap-4">
+                 <div className="p-3 bg-cyan-500/20 rounded-xl shrink-0">
+                    <Zap className="w-6 h-6 text-cyan-400" />
+                 </div>
+                 <div>
+                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-1">Поточне джерело</div>
+                    <div className="text-lg font-bold text-white flex items-center gap-2">
+                       Резервні батареї 
+                       <span className="flex h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]"></span>
+                    </div>
+                 </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {/* Картка Батареї */}
+                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl flex flex-col justify-between">
+                  <div className="flex items-center gap-2 mb-4 text-gray-400">
+                    <Battery className="w-4 h-4 text-emerald-400" /> 
+                    <span className="text-xs uppercase font-semibold">Ємність</span>
                   </div>
-                  <div className="text-2xl font-bold text-white">84%</div>
-                  <div className="text-xs text-emerald-400 flex items-center gap-1 mt-1">Оптимальне розрядження</div>
+                  <div>
+                    <div className="text-3xl font-bold text-white mb-1">84%</div>
+                    <div className="text-xs text-emerald-400">Оптимальне розрядження</div>
+                  </div>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs text-gray-400 uppercase font-semibold">Генератор</span>
-                    <RefreshCw className="w-5 h-5 text-amber-500" />
+                {/* Картка Генератора */}
+                <div className="bg-white/5 border border-white/10 p-5 rounded-2xl flex flex-col justify-between opacity-80">
+                  <div className="flex items-center gap-2 mb-4 text-gray-400">
+                    <RefreshCw className="w-4 h-4 text-gray-500" /> 
+                    <span className="text-xs uppercase font-semibold">Генератор</span>
                   </div>
-                  <div className="text-2xl font-bold text-gray-400">ОЧІКУВАННЯ</div>
-                  <div className="text-xs text-gray-500 mt-1">Пуск заблоковано AI</div>
+                  <div>
+                    <div className="text-xl font-bold text-gray-400 mb-1">Очікування</div>
+                    <div className="text-xs text-gray-500">Пуск заблоковано AI</div>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-amber-500/10 border border-amber-500/30 p-5 rounded-2xl flex items-start gap-4">
-                <AlertTriangle className="w-6 h-6 text-amber-400 shrink-0 mt-0.5" />
+              {/* Сповіщення */}
+              <div className="bg-[#1a1500] border border-amber-500/30 p-5 rounded-2xl flex items-start gap-4">
+                <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
                 <div>
-                  <div className="text-sm font-bold text-amber-400">AI Прогноз Мережі</div>
-                  <div className="text-xs text-gray-400 mt-1 leading-relaxed">
-                    Висока ймовірність планового відключення через 45 хв. Заряджаємо батареї від сонця...
+                  <div className="text-sm font-bold text-amber-500 mb-1">AI Прогноз Мережі</div>
+                  <div className="text-xs text-gray-400 leading-relaxed">
+                    Висока ймовірність планового відключення через 45 хв. Заряджаємо батареї від сонця.
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex-1 bg-black/40 border border-white/5 p-6 rounded-2xl min-h-[350px] flex flex-col">
-              <div className="flex items-center justify-between mb-6">
-                <div className="text-sm font-bold text-white">Споживання кВт</div>
+            {/* Права колонка: Графік */}
+            <div className="flex-[1.2] bg-black border border-white/10 p-6 md:p-8 rounded-[2rem] flex flex-col min-h-[400px]">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <div>
+                  <div className="text-sm text-gray-400 mb-1">Поточне споживання</div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-4xl font-extrabold text-white">3.2</span>
+                    <span className="text-gray-500 font-medium">кВт</span>
+                  </div>
+                </div>
+                
+                {/* Легенда графіка */}
+                <div className="flex items-center gap-4 text-xs font-medium bg-white/5 border border-white/5 px-4 py-2.5 rounded-xl">
+                  <div className="flex items-center gap-2 text-gray-300">
+                    <span className="w-3 h-3 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]"></span> Факт
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-300">
+                    <span className="w-4 h-0.5 border-b-2 border-dashed border-cyan-400"></span> AI Прогноз
+                  </div>
+                </div>
               </div>
-              <div className="w-full h-[280px]">
+
+              <div className="w-full flex-1 min-h-[250px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={energyData}>
+                  <AreaChart data={energyData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorLoad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#a855f7" stopOpacity={0.3}/>
+                        <stop offset="5%" stopColor="#a855f7" stopOpacity={0.4}/>
                         <stop offset="95%" stopColor="#a855f7" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="time" stroke="#4b5563" fontSize={11} tickLine={false} />
-                    <YAxis stroke="#4b5563" fontSize={11} tickLine={false} />
-                    <Tooltip contentStyle={{ backgroundColor: '#0d0d0d', borderColor: '#333', borderRadius: '12px' }} />
-                    <Area type="monotone" dataKey="load" stroke="#a855f7" strokeWidth={3} fillOpacity={1} fill="url(#colorLoad)" name="Факт" />
-                    <Line type="monotone" dataKey="prediction" stroke="#22d3ee" strokeDasharray="5 5" strokeWidth={2} dot={false} name="AI Прогноз" />
+                    <XAxis 
+                      dataKey="time" 
+                      stroke="#4b5563" 
+                      fontSize={11} 
+                      tickLine={false} 
+                      axisLine={false}
+                      dy={10}
+                    />
+                    <YAxis 
+                      stroke="#4b5563" 
+                      fontSize={11} 
+                      tickLine={false} 
+                      axisLine={false}
+                      dx={-10}
+                    />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#0d0d0d', borderColor: '#333', borderRadius: '12px', color: '#fff' }} 
+                      itemStyle={{ color: '#fff' }}
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="load" 
+                      stroke="#a855f7" 
+                      strokeWidth={3} 
+                      fillOpacity={1} 
+                      fill="url(#colorLoad)" 
+                      name="Факт (кВт)" 
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="prediction" 
+                      stroke="#22d3ee" 
+                      strokeDasharray="5 5" 
+                      strokeWidth={2} 
+                      dot={false} 
+                      name="Прогноз (кВт)" 
+                    />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
             </div>
+            
           </div>
         </div>
       </section>
@@ -663,6 +852,7 @@ export default function App() {
             </div>
           </div>
           
+          {/* Скролбар для темної теми */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/20 transition-all">
             {chatHistory.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
